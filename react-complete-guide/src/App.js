@@ -4,6 +4,7 @@ import "./components/Expenses/ExpenseItem";
 import ExpenseItem from "./components/Expenses/ExpenseItem";
 import Expenses from "./components/Expenses/Expenses";
 import NewExpense from "./components/NewExpense/NewExpense";
+import ExpenseFilter from "./components/Expenses/ExpenseFilter";
 
 const App = () => {
   const expenses = [
@@ -27,6 +28,9 @@ const App = () => {
       date: new Date(2021, 5, 12),
     },
   ];
+  const filterChange = year => {
+    console.log(year)
+  }
 
   const addExpenseHandler = expense => {
     console.log('in app.js');
@@ -36,7 +40,8 @@ const App = () => {
     <div>
       <h2>New Expense</h2>
       <NewExpense onAddExpense={addExpenseHandler} />
-     <Expenses items = {expenses}></Expenses>
+      
+     <Expenses items = {expenses} onFilterChange = {filterChange}></Expenses>
     </div>
   );
 };
