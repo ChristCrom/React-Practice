@@ -3,6 +3,7 @@ import "./App.css";
 import "./components/Expenses/ExpenseItem";
 import ExpenseItem from "./components/Expenses/ExpenseItem";
 import Expenses from "./components/Expenses/Expenses";
+import NewExpense from "./components/NewExpense/NewExpense";
 
 const App = () => {
   const expenses = [
@@ -26,9 +27,15 @@ const App = () => {
       date: new Date(2021, 5, 12),
     },
   ];
+
+  const addExpenseHandler = expense => {
+    console.log('in app.js');
+    console.log(expense);
+  }
   return (
     <div>
-      <h2>Let's Get Started!</h2>
+      <h2>New Expense</h2>
+      <NewExpense onAddExpense={addExpenseHandler} />
      <Expenses items = {expenses}></Expenses>
     </div>
   );
