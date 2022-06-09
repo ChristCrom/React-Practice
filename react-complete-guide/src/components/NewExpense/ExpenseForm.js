@@ -5,6 +5,7 @@ const ExpenseForm = (props) => {
     const [enteredTitle, setEnteredTitle] = useState('');
     const [enteredAmount, setEnteredAmount] = useState('');
     const [enteredDate, setEnteredDate] = useState('');
+    const [button, setButton] = useState('0');
     const titleChangeHandler = (event) => {
         setEnteredTitle(event.target.value);
 
@@ -17,22 +18,34 @@ const ExpenseForm = (props) => {
         setEnteredDate(event.target.value);
 
     };
-
+    const newExpenseButtonHandler = event =>{
+      setButton('1');
+    }
+    
     const submitHandler = (event) => {
         event.preventDefault();
 
         const expenseData = {
             title: enteredTitle,
-            amount: enteredAmount,
+            amount: +enteredAmount,
             date: new Date(enteredDate)
         };
         props.onSaveExpenseData(expenseData);
         setEnteredAmount('');
         setEnteredDate('');
-        setEnteredTitle('')
+        setEnteredTitle('');
+        setButton('0');
+
+ 
     };
-    
-    return <form onSubmit={submitHandler}>
+    const cancelHandler = event =>{
+        setButton('0');
+    }
+
+    if(button === '0'){
+    return <button onClick = {newExpenseButtonHandler}>Add New Expense</button>}
+    if(button === '1')
+    return (<form onSubmit={submitHandler}>
         <div className="new-expense__controls">
             <div className="new-expense__control">
                 <label>Title</label>
@@ -50,11 +63,13 @@ const ExpenseForm = (props) => {
         <div className="new-expense__controls">
             <div className="new-expense__control">
                 <label>Date</label>
-                <input type='date' min="2019-01-01" value={enteredAmount} max = "2023-12-31" onChange={dateChangeHandler}></input>
+                <input type='date'  value={enteredAmount} onChange={dateChangeHandler}></input>
             </div>
         </div>
+        <button onClick = {cancelHandler}>Cancel</button>
         <button type="submit">Submit</button>
     </form>
+    );
 
 };
 
